@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <style>
+        #sliderContainer {
+            position: relative;
+            margin: 4vh 2vh;
+            height: 65vh;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            border-radius: 20px;
+        }
+        .slides>img {
+            width: 100%;
+            height: 65vh;
+            background-size: cover;
+            border-radius: 20px;
+        }
+        .previous,
+        .next {
+            width: 0px;
+            color: black;
+            padding: 20px;
+            font-size: 23px;
+            font-weight: 900;
+            position: absolute;
+            top: 40%;
+            transition: .5s ease-in;
+        }
+
+        .next {
+            right: 20px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .previous {
+            left: 0px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .number {
+            width: 5px;
+            height: 2px;
+            text-align: center;
+            margin-top: 0px;
+        }
+
+        @media only screen and (max-width:840px) {
+            #sliderContainer {
+                display: none;
+            }
+            .slides>img {
+                display: none;
+            }
+            .previous,
+            .next,
+            .number {
+                display: none;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="sliderContainer">
+        <div class="slides">
+            <img src="https://media.istockphoto.com/id/652925524/photo/scandinavian-classic-kitchen-with-wooden-and-turquoise-details-minimalistic-interior-design.webp?b=1&s=170667a&w=0&k=20&c=3GNWEAZNT_dawP7u7RKT-nwKzS8_PosDzKJaeP0QDoc="
+                alt="">
+        </div>
+        <div class="slides">
+            <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bGl2aW5nJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D"
+                alt="">
+        </div>
+        <div class="slides">
+            <img src="https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGludGVyaW9yJTIwZGVzaWdufGVufDB8fDB8fHww"
+                alt="">
+        </div>
+        <div class="slides">
+            <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8a2l0Y2hlbnxlbnwwfHwwfHx8MA%3D%3D"
+                alt="">
+        </div>
+        <div class="slides">
+            <img src="https://media.istockphoto.com/id/1256021268/photo/beautiful-modern-kitchen-with-all-luxuries-you-could-want.webp?b=1&s=170667a&w=0&k=20&c=RdF1tubv1sWnpscCJDWEB0j9QaQ3Ua9j2t7e8tRSJnE="
+                alt="">
+        </div>
+        <div class="slides">
+            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aW50ZXJpb3IlMjBkZXNpZ258ZW58MHx8MHx8fDA%3D"
+                alt="">
+        </div>
+
+        <div class="previous " onclick="addSlide(-1)">
+            <i class="bi bi-chevron-left"></i>
+        </div>
+        <div class="next" onclick="addSlide(1)">
+            <i class="bi bi-chevron-right"></i>
+        </div>
+    </div>
+    <div style="display: flex;justify-content: center;align-items: center;gap:10px;">
+        <p class="number"></p>
+        <p class="number"></p>
+        <p class="number"></p>
+        <p class="number"></p>
+        <p class="number"></p>
+        <p class="number"></p>
+    </div>
+</body>
+<script>
+    var index = 1;
+    showImage(index);
+
+    function addSlide(slide) {
+        index = index + slide;
+        console.log("index value", index);
+        showImage(index);
+    }
+    function showImage(n) {
+        var allSlides = document.querySelectorAll(".slides");
+        var allDots = document.querySelectorAll(".number");
+
+        if (n > allSlides.length) {
+            index = 1;
+        }
+
+        if (n < 1) {
+            index = allSlides.length;
+        }
+
+        for (var i = 0; i < allSlides.length; i++) {
+            allSlides[i].style.display = "none";
+        }
+
+        for (var i = 0; i < allDots.length; i++) {
+            allDots[i].style.backgroundColor = "lightgray";
+        }
+
+        allSlides[index - 1].style.display = "block";
+        allDots[index - 1].style.backgroundColor = "transparent";
+    }
+    function autoSlide() {
+        addSlide(1); // Move to the next slide
+        setTimeout(autoSlide, 3000); // Call autoSlide function again after 2 seconds
+    }
+    autoSlide(); // Start the automatic sliding
+</script>
+
+</html>
